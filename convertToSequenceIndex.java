@@ -4,16 +4,19 @@ import java.util.regex.Pattern;
 import java.util.Arrays;
 
 public class convertToSequenceIndex{
+	private static final String DEFAULT_SEPARATOR = ",";
+	private static final String EMPTY_STRING = "";
+
 	public static void main( String... parameters ){
 		try{
 			String separator = parameters[ 0 ];
 			String sequence = parameters[ 1 ];
-			String dictionary = "";
+			String dictionary = EMPTY_STRING;
 
 			if( parameters.length == 3 ){
 				dictionary = parameters[ 2 ];
 			}else if( parameters.length == 2 ){
-				separator = "";
+				separator = EMPTY_STRING;
 				sequence = parameters[ 0 ];
 				dictionary = parameters[ 1 ];
 			}
@@ -25,10 +28,8 @@ public class convertToSequenceIndex{
 		}
 	}
 
-	private static final String DEFAULT_SEPARATOR = ",";
-
-	public static BigInteger convertToSequenceIndex( String separator, String sequence, String dictionary ) throws Exception{
-		if( separator == null || separator == "" ){
+	public static BigInteger convertToSequenceIndex( String separator, String sequence, String dictionary ){
+		if( separator == null || separator == EMPTY_STRING ){
 			separator = DEFAULT_SEPARATOR;
 		}
 
@@ -38,7 +39,10 @@ public class convertToSequenceIndex{
 		*/
 		String sequenceList[ ] = null;
 		String dictionaryList[ ] = null;
-		if( contains( sequence, Pattern.compile( separator ) ) ){
+		Pattern separatorPattern = Pattern.compile( separator );
+		if( contains( sequence, separatorPattern )
+			&& contains( sequence, separatorPattern ) )
+		{
 			sequenceList = sequence.split( separator );
 			dictionaryList = dictionary.split( separator );
 		}else{
@@ -46,8 +50,8 @@ public class convertToSequenceIndex{
 				If we can't find any separator then separate
 					them by empty spaces.
 			*/
-			sequenceList = sequence.split( "" );
-			dictionaryList = dictionary.split( "" );
+			sequenceList = sequence.split( EMPTY_STRING );
+			dictionaryList = dictionary.split( EMPTY_STRING );
 
 			/*
 				We are doing this because there's an extra 
@@ -66,7 +70,7 @@ public class convertToSequenceIndex{
 		
 		int elementIndex = sequenceLength - 1;
 
-		String element = "";
+		String element = EMPTY_STRING;
 		Integer dictionaryElementIndex = 0;
 		
 		for( int index = 0; index < sequenceLength; index++, elementIndex-- ){
