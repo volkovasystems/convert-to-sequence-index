@@ -1,0 +1,3 @@
+[submodule "convertToSequenceIndex"]
+	path = convertToSequenceIndex
+	url = https://github.com/volkovasystems/convertToSequenceIndex.git
